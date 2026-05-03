@@ -1,130 +1,127 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=NSTI%20Jodhpur%20Examination%20System&fontSize=40&fontAlignY=35&desc=Next-Generation%20LMS%20Platform&descAlignY=55&descAlign=50" alt="Header Banner" width="100%"/>
+# NSTI Jodhpur Examination System
 
-<a href="https://kapilinania.github.io/lms-project/">
-  <img src="https://readme-typing-svg.demolab.com?font=Outfit&weight=600&size=22&pause=1000&color=4285F4&center=true&vCenter=true&width=600&lines=Secure+Assessment+Platform;Intelligent+Anti-Cheating+System;Built+for+the+Future+of+Education" alt="Typing SVG" />
-</a>
+**A robust, enterprise-grade Learning Management System designed to ensure academic integrity.**
 
+[![Live Demo](https://img.shields.io/badge/Live_Environment-View_Platform-2ea44f?style=for-the-badge&logo=vercel)](https://kapilinania.github.io/lms-project/)
 <br/>
-
-[![Live Demo](https://img.shields.io/badge/Live_Demo-View_Project-success?style=for-the-badge&logo=vercel&logoColor=white&color=000000)](https://kapilinania.github.io/lms-project/)
-
-<br/>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
-  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />
-  <img src="https://img.shields.io/badge/Bootstrap_Icons-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" />
-</p>
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/Version-1.0.0-lightgrey.svg?style=flat-square)](#)
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=flat-square)](./CONTRIBUTING.md)
 
 </div>
 
 ---
 
-<br/>
+## Overview
 
-## 🚀 Experience The Project
+The NSTI Jodhpur Examination System is a next-generation assessment platform built to address the core challenges of modern digital education. It combines an adaptive, glassmorphic user interface with aggressive, intelligent anti-cheating mechanisms to deliver a secure testing environment that does not compromise on user experience.
 
-<details open>
-<summary><b>✨ Click to reveal Interactive Overview</b></summary>
+Whether you are conducting high-stakes examinations or routine mock tests, this platform provides the infrastructure required to scale securely.
 
-<br/>
+## Table of Contents
 
-Welcome to the **NSTI Jodhpur Examination System**! We've built a next-generation Learning Management System (LMS) focused on providing a highly secure, anti-cheat environment. 
+- [Core Capabilities](#core-capabilities)
+- [System Architecture](#system-architecture)
+- [Getting Started](#getting-started)
+- [Security Model](#security-model)
+- [Project Leadership](#project-leadership)
+- [License](#license)
 
-> 💡 **Tip:** Click the **Live Demo** button above to experience the glassmorphic UI and adaptive dark/light mode yourself!
+---
 
-</details>
+## Core Capabilities
 
-<br/>
-
-## 💎 Dynamic Features & Security
-
-This platform is equipped with an arsenal of tools to ensure academic integrity. *Click the sections below to explore:*
-
-<details>
-<summary><b>🛡️ Enterprise-Grade Security (Expand)</b></summary>
-
-<br/>
-
-*   **Randomization Engine:** Generates unique question sets and option orders for every single student.
-*   **Intelligent Tab Guard:** Detects user focus. If a tab switch is attempted, the exam auto-submits.
-*   **Mandatory Fullscreen:** Forces users to stay in an isolated environment.
-*   **AES-256 Encryption:** Military-grade data encryption during transmission.
-*   **AI Proctoring:** Automated gaze tracking and behavior analysis to detect suspicious activity.
-</details>
-
-<details>
-<summary><b>🎨 Adaptive UI/UX (Expand)</b></summary>
-
-<br/>
-
-*   **Glassmorphism Design:** Beautiful frosted glass effects.
-*   **Dynamic Theming:** Seamless Dark & Light mode toggling.
-*   **Micro-interactions:** Smooth hover effects, particle backgrounds, and fluid typography.
-</details>
-
-<details>
-<summary><b>📶 Smart Connectivity (Expand)</b></summary>
-
-<br/>
-
-*   **Offline Sync:** Smart resilience technology ensures no data loss during network drops. Answers are saved locally and synced once connection returns.
-</details>
-
-<br/>
-
-## 📂 Architecture Explorer
-
-Navigate our directory structure:
-
-```text
-📦 NstiLms
- ┣ 📂 images/               # 🖼️ Assets and graphics
- ┣ 📜 index.html            # 🚪 Landing page & Main entry point
- ┣ 📜 dashboard.html        # 📊 Admin/Student dashboard
- ┣ 📜 test.html             # 📝 Live examination interface
- ┣ 📜 mock-test.html        # 🎯 Practice test interface
- ┣ 📜 mock-menu.html        # 🗂️ Selection menu for mock tests
- ┣ 📜 script.js             # ⚙️ Core logic for main application
- ┣ 📜 dashboard-script.js   # 📈 Interactive logic for dashboard
- ┣ 📜 mock-script.js        # 🧠 Logic for handling mock exams
- ┗ 📜 mock-csa-data.js      # 💾 Mock database/questions
-```
-
-<br/>
-
-## 👨‍🏫 Project Guidance
+We focus on three main pillars: Security, Usability, and Reliability.
 
 <table>
   <tr>
-    <td align="center" width="250">
-      <h3>Mohamad Insaf Ali</h3>
-      <b>Project Mentor & Guide</b>
+    <td width="33%" valign="top">
+      <h3>🛡️ Zero-Trust Security</h3>
+      Built-in mechanisms to prevent unauthorized access and maintain test integrity. Includes Tab-Guard, forced fullscreen, and AI-assisted behavioral tracking.
     </td>
-    <td><i>"Under his visionary guidance, this project has evolved from a simple concept into a robust, enterprise-grade examination platform. His focus on Anti-Cheating mechanisms and user experience has been instrumental."</i></td>
+    <td width="33%" valign="top">
+      <h3>🎨 Premium UI/UX</h3>
+      A seamless experience featuring dynamic Light/Dark modes, responsive fluid typography, and micro-interactions powered by modern CSS architectures.
+    </td>
+    <td width="33%" valign="top">
+      <h3>📶 High Availability</h3>
+      Smart resilience technology guarantees that test progress is saved locally during network drops, syncing automatically upon reconnection.
+    </td>
   </tr>
 </table>
 
-<br/>
+---
 
-## 🚀 Getting Started Locally
+## System Architecture
+
+The project follows a modular, client-heavy architecture, allowing for rapid deployment and easy maintenance.
+
+| Directory / File | Description | Role |
+| :--- | :--- | :--- |
+| `index.html` | Application Entry Point | Handles landing, authentication routing, and theme management. |
+| `dashboard.html` | Administrator & Student Hub | Renders real-time analytics, test histories, and profile data. |
+| `test.html` | Secure Assessment Interface | The locked-down environment where active examinations occur. |
+| `mock-csa-data.js`| Data Layer | Serves structured JSON-like data for mock examinations. |
+| `script.js` | Core Logic Controller | Manages state, anti-cheat event listeners, and offline syncing. |
+
+---
+
+## Security Model
+
+Academic integrity is maintained through a multi-layered security protocol:
+
+1. **State Randomization:** Questions and multiple-choice options are dynamically shuffled per user session.
+2. **Environment Locking:** The `Tab Guard` API detects window blur events. If a user navigates away from the active exam window, an immediate auto-submit protocol is triggered.
+3. **Data Encryption:** All sensitive transmission data is secured using AES-256 standards.
+4. **Identity Verification:** Digital fingerprinting ensures the user session cannot be hijacked.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+No complex build tools are required. The platform runs on vanilla web technologies.
+- A modern web browser (Chrome 90+, Firefox 88+, Edge 90+)
+- Git (for version control)
+
+### Installation
+
+Clone the repository to your local machine:
 
 ```bash
-# 1. Clone the repo
 git clone https://github.com/kapilinania/lms-project.git
-
-# 2. Navigate to directory
 cd lms-project
-
-# 3. Open in browser (or use Live Server)
-start index.html
 ```
 
-<br/>
+### Running the Application
+
+To ensure all scripts and local storage functions operate correctly (bypassing CORS restrictions), serve the directory using a local web server:
+
+```bash
+# If using Python 3:
+python -m http.server 8000
+
+# If using Node.js:
+npx serve .
+```
+
+Navigate to `http://localhost:8000` in your browser.
+
+---
+
+## Project Leadership
+
+This platform was developed under the visionary guidance of **Mohamad Insaf Ali** (Project Mentor & Guide). His strict focus on scalable anti-cheating mechanisms and user-centric design has been the driving force behind the platform's success.
+
+---
+
+## License
+
+This project is open-sourced software licensed under the [MIT license](LICENSE).
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=100&section=footer" width="100%"/>
+  <p>Engineered for the future of education by the NSTI Team.</p>
 </div>
