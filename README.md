@@ -1,117 +1,130 @@
 <div align="center">
 
-# 🎓 NSTI Jodhpur - Examination System
+<img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=NSTI%20Jodhpur%20Examination%20System&fontSize=40&fontAlignY=35&desc=Next-Generation%20LMS%20Platform&descAlignY=55&descAlign=50" alt="Header Banner" width="100%"/>
 
-**A secure, intelligent, and seamless assessment platform designed for the future of education.**
-
-[![Live Demo](https://img.shields.io/badge/Live_Demo-View_Project-success?style=for-the-badge&logo=vercel)](https://kapilinania.github.io/lms-project/)
-
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](#)
-[![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](#)
-[![Bootstrap Icons](https://img.shields.io/badge/Bootstrap_Icons-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](#)
-
-</div>
+<a href="https://kapilinania.github.io/lms-project/">
+  <img src="https://readme-typing-svg.demolab.com?font=Outfit&weight=600&size=22&pause=1000&color=4285F4&center=true&vCenter=true&width=600&lines=Secure+Assessment+Platform;Intelligent+Anti-Cheating+System;Built+for+the+Future+of+Education" alt="Typing SVG" />
+</a>
 
 <br/>
 
-## 🌟 About The Project
+[![Live Demo](https://img.shields.io/badge/Live_Demo-View_Project-success?style=for-the-badge&logo=vercel&logoColor=white&color=000000)](https://kapilinania.github.io/lms-project/)
 
-The **NSTI Jodhpur Examination System** is a next-generation Learning Management System (LMS) focused on providing a highly secure, anti-cheat environment for conducting examinations and mock tests. Built with a modern, clean UI and seamless dark/light mode integration, it offers a premium experience for both administrators and students.
+<br/>
 
-### ✨ Key Features
+<p align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />
+  <img src="https://img.shields.io/badge/Bootstrap_Icons-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" />
+</p>
 
-- **🛡️ Enterprise-Grade Security:**
-  - **Randomization:** Unique question sets and option orders per student.
-  - **Tab Guard:** Intelligent detection triggers auto-submit if tab switching occurs.
-  - **Secure Environment:** Mandatory fullscreen mode to prevent distraction or cheating.
-  - **AES-256 Encryption:** Secure data transmission.
-  - **AI Proctoring:** Automated gaze tracking and behavior analysis.
-- **🌗 Adaptive UI/UX:** Fully responsive, mobile-first design with dynamic Dark/Light theme toggling.
-- **📊 Real-time Dashboard:** Track student performance, active tests, and analytics.
-- **📝 Mock Tests & Trades:** Categorized mock exams for different trades (e.g., CSA).
-- **📶 Offline Sync:** Smart resilience technology ensures no data loss during network drops.
+</div>
 
 ---
 
-## 🚀 Getting Started
+<br/>
 
-To get a local copy up and running, follow these simple steps.
+## 🚀 Experience The Project
 
-### Prerequisites
+<details open>
+<summary><b>✨ Click to reveal Interactive Overview</b></summary>
 
-You only need a modern web browser (Chrome, Firefox, Safari, Edge) to run this project locally.
+<br/>
 
-### Installation
+Welcome to the **NSTI Jodhpur Examination System**! We've built a next-generation Learning Management System (LMS) focused on providing a highly secure, anti-cheat environment. 
 
-1. **Clone the repo**
-   ```sh
-   git clone https://github.com/kapilinania/lms-project.git
-   ```
-2. **Navigate to the project directory**
-   ```sh
-   cd lms-project
-   ```
-3. **Open `index.html`**
-   - Double-click `index.html` or open it in your preferred browser.
-   - *Tip:* For the best experience, use a local server like Live Server (VS Code Extension) to ensure all scripts load without CORS restrictions.
+> 💡 **Tip:** Click the **Live Demo** button above to experience the glassmorphic UI and adaptive dark/light mode yourself!
 
----
+</details>
 
-## 📂 Project Structure
+<br/>
+
+## 💎 Dynamic Features & Security
+
+This platform is equipped with an arsenal of tools to ensure academic integrity. *Click the sections below to explore:*
+
+<details>
+<summary><b>🛡️ Enterprise-Grade Security (Expand)</b></summary>
+
+<br/>
+
+*   **Randomization Engine:** Generates unique question sets and option orders for every single student.
+*   **Intelligent Tab Guard:** Detects user focus. If a tab switch is attempted, the exam auto-submits.
+*   **Mandatory Fullscreen:** Forces users to stay in an isolated environment.
+*   **AES-256 Encryption:** Military-grade data encryption during transmission.
+*   **AI Proctoring:** Automated gaze tracking and behavior analysis to detect suspicious activity.
+</details>
+
+<details>
+<summary><b>🎨 Adaptive UI/UX (Expand)</b></summary>
+
+<br/>
+
+*   **Glassmorphism Design:** Beautiful frosted glass effects.
+*   **Dynamic Theming:** Seamless Dark & Light mode toggling.
+*   **Micro-interactions:** Smooth hover effects, particle backgrounds, and fluid typography.
+</details>
+
+<details>
+<summary><b>📶 Smart Connectivity (Expand)</b></summary>
+
+<br/>
+
+*   **Offline Sync:** Smart resilience technology ensures no data loss during network drops. Answers are saved locally and synced once connection returns.
+</details>
+
+<br/>
+
+## 📂 Architecture Explorer
+
+Navigate our directory structure:
 
 ```text
 📦 NstiLms
- ┣ 📂 images/               # Assets and graphics
- ┣ 📜 index.html            # Landing page & Main entry point
- ┣ 📜 dashboard.html        # Admin/Student dashboard
- ┣ 📜 test.html             # Live examination interface
- ┣ 📜 mock-test.html        # Practice test interface
- ┣ 📜 mock-menu.html        # Selection menu for mock tests
- ┣ 📜 coming-soon.html      # Placeholder for upcoming features
- ┣ 📜 script.js             # Core logic for the main application
- ┣ 📜 dashboard-script.js   # Interactive logic for the dashboard
- ┣ 📜 mock-script.js        # Logic for handling mock exams
- ┗ 📜 mock-csa-data.js      # Mock database/questions for CSA trade
+ ┣ 📂 images/               # 🖼️ Assets and graphics
+ ┣ 📜 index.html            # 🚪 Landing page & Main entry point
+ ┣ 📜 dashboard.html        # 📊 Admin/Student dashboard
+ ┣ 📜 test.html             # 📝 Live examination interface
+ ┣ 📜 mock-test.html        # 🎯 Practice test interface
+ ┣ 📜 mock-menu.html        # 🗂️ Selection menu for mock tests
+ ┣ 📜 script.js             # ⚙️ Core logic for main application
+ ┣ 📜 dashboard-script.js   # 📈 Interactive logic for dashboard
+ ┣ 📜 mock-script.js        # 🧠 Logic for handling mock exams
+ ┗ 📜 mock-csa-data.js      # 💾 Mock database/questions
 ```
 
----
-
-## 💎 Design Philosophy
-
-The UI is crafted using modern CSS variables and vanilla web technologies, focusing on:
-- **Fluid Typography:** Scales beautifully across mobile, tablet, and desktop screens.
-- **Micro-interactions:** Smooth hover states, particle canvas backgrounds, and marquee animations to keep the user engaged.
-- **Accessibility:** High contrast ratios and responsive navigation menus ensure usability for everyone.
-
----
+<br/>
 
 ## 👨‍🏫 Project Guidance
 
-**Mohamad Insaf Ali** - *Project Mentor & Guide*
+<table>
+  <tr>
+    <td align="center" width="250">
+      <h3>Mohamad Insaf Ali</h3>
+      <b>Project Mentor & Guide</b>
+    </td>
+    <td><i>"Under his visionary guidance, this project has evolved from a simple concept into a robust, enterprise-grade examination platform. His focus on Anti-Cheating mechanisms and user experience has been instrumental."</i></td>
+  </tr>
+</table>
 
-> "Under his visionary guidance, this project has evolved from a simple concept into a robust, enterprise-grade examination platform. His focus on Anti-Cheating mechanisms and user experience has been instrumental."
+<br/>
 
----
+## 🚀 Getting Started Locally
 
-## 🤝 Contributing
+```bash
+# 1. Clone the repo
+git clone https://github.com/kapilinania/lms-project.git
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+# 2. Navigate to directory
+cd lms-project
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📜 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+# 3. Open in browser (or use Live Server)
+start index.html
+```
 
 <br/>
 
 <div align="center">
-  <sub>Built with ❤️ by the NSTI Team</sub>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=100&section=footer" width="100%"/>
 </div>
