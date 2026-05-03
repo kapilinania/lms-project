@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSTI Jodhpur - Examination System</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --bg: #FFFFFF;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --surface: #F8F9FA;
+            --border: #e8eaed;
+
+            --blue: #4285F4;
+            --red: #EA4335;
+            --yellow: #FBBC05;
+            --green: #34A853;
+            --purple: #9747FF;
+
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius: 24px;
+        }
+
+        [data-theme="dark"] {
+            --bg: #121212;
+            --text-main: #E8EAED;
+            --text-muted: #9AA0A6;
+            --surface: #1E1E1E;
+            --border: #2D2D2D;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            width: 100vw;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- UTILS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--blue);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0)
+            }
+
+            40% {
+                transform: translateY(-10px)
+            }
+
+            60% {
+                transform: translateY(-5px)
+            }
+        }
+
+        /* --- FIXED ELEMENTS --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+
+        /* --- CONTENT LAYER --- */
+        .content-layer {
+            background-color: var(--bg);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
+            padding-bottom: 0px;
+        }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--blue), var(--green));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .btn-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 40px;
+            border-radius: 100px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+            background: var(--text-main);
+            color: var(--bg);
+        }
+
+        .btn-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* --- ABOUT (Cards) --- */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .mission-card {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--blue);
+        }
+
+        .mission-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* --- PROCESS --- */
+        .process-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .process-card {
+            flex: 1 1 300px;
+            background: var(--surface);
+            padding: 40px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .process-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .process-num {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 6rem;
+            font-weight: 700;
+            opacity: 0.05;
+            color: var(--text-main);
+        }
+
+
+        /* --- TECH STACK (Marquee Left) --- */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 20px 0;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            animation: scrollLeft 30s linear infinite;
+            gap: 40px;
+        }
+
+        .tech-pill {
+            background: var(--surface);
+            padding: 12px 30px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes scrollLeft {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+
+        /* --- PROJECT GUIDANCE (Mohamad Insaf Ali) --- */
+        .guide-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow);
+        }
+
+        @media (min-width: 768px) {
+            .guide-card {
+                flex-direction: row;
+            }
+        }
+
+        .guide-img {
+            flex: 1;
+            min-height: 300px;
+            background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: #ccc;
+        }
+
+        .guide-content {
+            flex: 1.5;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        /* --- ANTI-CHEATING --- */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .security-item {
+            background: var(--bg);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .sec-icon {
+            font-size: 1.5rem;
+            color: var(--red);
+            background: rgba(234, 67, 53, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+
+        /* --- GLOBAL SCALE --- */
+        .scale-section {
+            background: var(--text-main);
+            color: var(--bg);
+            border-radius: var(--radius);
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .scale-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .scale-num {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--blue);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+
+        /* --- TESTIMONIALS (Marquee Right) --- */
+        .reviews-marquee {
+            display: inline-flex;
+            animation: scrollRight 40s linear infinite;
+            gap: 30px;
+        }
+
+        .review-card {
+            width: 400px;
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            white-space: normal;
+            flex-shrink: 0;
+        }
+
+        @keyframes scrollRight {
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+
+        /* --- TEAM --- */
+        .team-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .team-profile {
+            text-align: center;
+            background: var(--surface);
+            padding: 30px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            width: 250px;
+            transition: 0.3s;
+        }
+
+        .team-profile:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 0 auto 20px;
+            border: 3px solid var(--bg);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--surface);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 24px;
+            color: var(--text-main);
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--blue);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* --- MOBILE APP DOWNLOAD --- */
+        .app-download-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .app-download-container {
+                flex-direction: row;
+            }
+        }
+        /* --- NAVIGATION --- */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: background 0.3s, border 0.3s;
+        }
+
+        [data-theme="dark"] .main-nav {
+            background: rgba(18, 18, 18, 0.7);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-logo i {
+            color: var(--blue);
+            font-size: 1.8rem;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: var(--text-main);
+            color: var(--bg);
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: var(--bg);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+        
+        .theme-toggle-nav {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .theme-toggle-nav:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none; 
+            }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 71px;
+                left: 0;
+                width: 100%;
+                background: var(--surface);
+                padding: 20px 0;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 20px;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .main-nav {
+                padding: 15px 20px;
+            }
+            .d-none-mobile {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+    
+    <!-- NAVIGATION BAR -->
+    <nav class="main-nav">
+        <a href="#" class="nav-logo">
+            <i class="bi bi-layers-half"></i> NSTI LMS
+        </a>
+        
+        <div class="nav-center">
+            <div class="nav-links" id="navLinks">
+                <a href="#security" onclick="toggleMobileMenu()">Security</a>
+                <a href="#trades" onclick="toggleMobileMenu()">Trades</a>
+                <a href="#mock" onclick="toggleMobileMenu()">Mock Tests</a>
+                <a href="#verify" onclick="toggleMobileMenu()">Verify</a>
+                <a href="#about" onclick="toggleMobileMenu()">Mission</a>
+            </div>
+        </div>
+        
+        <div class="nav-actions">
+            <!-- Theme toggle inside nav -->
+            <button class="theme-toggle-nav" id="theme-btn"><i class="bi bi-moon-fill"></i></button>
+            <a href="test.html" class="nav-btn d-none-mobile">Start Exam</a>
+            <!-- Mobile hamburger -->
+            <button class="mobile-toggle" onclick="toggleMobileMenu()"><i class="bi bi-list"></i></button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero fade-up">
+        <div class="container">
+            <div class="hero-logo"><i class="bi bi-layers-half"></i></div>
+            <h1>NSTI Jodhpur<br>Examination System</h1>
+            <p>A secure, intelligent, and seamless assessment platform designed for the future of education.</p>
+            <a href="test.html" class="btn-pill">Start Exam <i class="bi bi-arrow-right"></i></a>
+        </div>
+        <div style="position: absolute; bottom: 40px; animation: bounce 2s infinite; opacity: 0.5;"><i
+                class="bi bi-chevron-down" style="font-size: 1.5rem;"></i></div>
+    </header>
+
+    <main class="content-layer">
+
+        <!-- ANTI-CHEATING (Moved Here) -->
+        <section id="security" class="fade-up" style="background: var(--surface)">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Security First</span>
+                    <h2 class="section-title">Anti-Cheating System</h2>
+                </div>
+                <div class="security-grid">
+                    <div class="security-item">
+                        <div class="sec-icon"><i class="bi bi-shuffle"></i></div>
+                        <div>
+                            <h4>Randomization</h4>
+                            <p style="color:var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Server-side
+                                randomization ensures every student gets a unique question set and option order.</p>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="sec-icon"><i class="bi bi-browser-edge"></i></div>
+                        <div>
+                            <h4>Tab Guard</h4>
+                            <p style="color:var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Intelligent
+                                detection triggers auto-submit if the user attempts to switch tabs.</p>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="sec-icon"><i class="bi bi-fullscreen"></i></div>
+                        <div>
+                            <h4>Secure Environment</h4>
+                            <p style="color:var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Mandatory fullscreen
+                                mode prevents access to other applications during the exam.</p>
+                        </div>
+                    </div>
+                    <!-- NEW CARDS START -->
+                    <div class="security-item">
+                        <div class="sec-icon"><i class="bi bi-shield-lock-fill"></i></div>
+                        <div>
+                            <h4>AES-256 Encryption</h4>
+                            <p style="color:var(--text-muted); font-size: 0.9rem; margin-top: 5px;">All data is
+                                encrypted with bank-grade security during transmission and storage.</p>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="sec-icon"><i class="bi bi-wifi-off"></i></div>
+                        <div>
+                            <h4>Offline Sync</h4>
+                            <p style="color:var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Smart resilience
+                                technology ensures no answers are lost even if internet drops.</p>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="sec-icon"><i class="bi bi-person-badge"></i></div>
+                        <div>
+                            <h4>ID Verification</h4>
+                            <p style="color:var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Digital
+                                fingerprinting and login verification to prevent impersonation.</p>
+                        </div>
+                    </div>
+                    <!-- EXTRA 2 CARDS -->
+                    <div class="security-item">
+                        <div class="sec-icon"><i class="bi bi-eye"></i></div>
+                        <div>
+                            <h4>AI Proctoring</h4>
+                            <p style="color:var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Automated gaze
+                                tracking and behavior analysis triggers alerts for suspicious activity.</p>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="sec-icon"><i class="bi bi-shield-check"></i></div>
+                        <div>
+                            <h4>Data Privacy</h4>
+                            <p style="color:var(--text-muted); font-size: 0.9rem; margin-top: 5px;">GDPR compliant data
+                                handling ensures student information is never compromised.</p>
+                        </div>
+                    </div>
+                    <!-- NEW CARDS END -->
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECT GUIDANCE -->
+        <section class="fade-up" style="background: var(--bg)">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Leadership</span>
+                    <h2 class="section-title">Project Guidance</h2>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-img"><i class="bi bi-person-bounding-box"></i></div>
+                    <div class="guide-content">
+                        <h3 style="font-size: 2rem; margin-bottom: 10px;">Mohamad Insaf Ali</h3>
+                        <span style="color: var(--blue); font-weight: 600; display: block; margin-bottom: 20px;">Project
+                            Mentor & Guide</span>
+                        <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 24px;">
+                            Under his visionary guidance, this project has evolved from a simple concept into a robust,
+                            enterprise-grade examination platform. His focus on "Anti-Cheating" mechanisms and
+                            user-centric design has shaped the core architecture of this system.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECH STACK (Marquee, Real Colors) -->
+        <section class="fade-up" style="background: var(--surface);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Technology</span>
+                    <h2 class="section-title">Powered By</h2>
+                </div>
+            </div>
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    <div class="tech-pill"><i class="bi bi-filetype-html" style="color: #E34F26;"></i> HTML5</div>
+                    <div class="tech-pill"><i class="bi bi-filetype-css" style="color: #1572B6;"></i> CSS3</div>
+                    <div class="tech-pill"><i class="bi bi-filetype-js" style="color: #F7DF1E;"></i> JavaScript</div>
+                    <div class="tech-pill"><i class="bi bi-bootstrap" style="color: #7952B3;"></i> Bootstrap</div>
+                    <div class="tech-pill"><i class="bi bi-server" style="color: #339933;"></i> Node.js</div>
+                    <div class="tech-pill"><i class="bi bi-database" style="color: #FFCA28;"></i> Firebase</div>
+                    <div class="tech-pill"><i class="bi bi-shield-lock" style="color: #EB5424;"></i> Auth0</div>
+                    <div class="tech-pill"><i class="bi bi-code-slash" style="color: #007ACC;"></i> VS Code</div>
+                    <!-- Duplicate -->
+                    <div class="tech-pill"><i class="bi bi-filetype-html" style="color: #E34F26;"></i> HTML5</div>
+                    <div class="tech-pill"><i class="bi bi-filetype-css" style="color: #1572B6;"></i> CSS3</div>
+                    <div class="tech-pill"><i class="bi bi-filetype-js" style="color: #F7DF1E;"></i> JavaScript</div>
+                    <div class="tech-pill"><i class="bi bi-bootstrap" style="color: #7952B3;"></i> Bootstrap</div>
+                    <div class="tech-pill"><i class="bi bi-server" style="color: #339933;"></i> Node.js</div>
+                    <div class="tech-pill"><i class="bi bi-database" style="color: #FFCA28;"></i> Firebase</div>
+                    <div class="tech-pill"><i class="bi bi-shield-lock" style="color: #EB5424;"></i> Auth0</div>
+                    <div class="tech-pill"><i class="bi bi-code-slash" style="color: #007ACC;"></i> VS Code</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACCESS ANYWHERE (NEW) -->
+        <section class="fade-up">
+            <div class="container">
+                <div
+                    style="display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 800px; margin: 0 auto;">
+                    <span class="section-tag">Universal Access</span>
+                    <h2 class="section-title">Learn Anywhere, Anytime</h2>
+                    <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 40px;">
+                        Our portal is fully responsive. Whether you're on a desktop in the lab or a mobile device at
+                        home, your learning journey never stops.
+                    </p>
+                    <div
+                        style="display: flex; justify-content: center; gap: 40px; font-size: 3rem; color: var(--text-muted);">
+                        <div style="text-align: center;">
+                            <i class="bi bi-laptop"
+                                style="color: var(--blue); margin-bottom: 10px; display: block;"></i>
+                            <span style="font-size: 1rem; font-weight: 500;">Desktop</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="bi bi-tablet" style="color: var(--red); margin-bottom: 10px; display: block;"></i>
+                            <span style="font-size: 1rem; font-weight: 500;">Tablet</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="bi bi-phone"
+                                style="color: var(--green); margin-bottom: 10px; display: block;"></i>
+                            <span style="font-size: 1rem; font-weight: 500;">Mobile</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- VISUAL SHOWCASE (Antigravity Aesthetic) -->
+        <section class="fade-up" style="padding: 100px 0; position: relative; overflow: hidden;">
+            <div
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, rgba(66, 133, 244, 0.1) 0%, var(--bg) 70%);">
+            </div>
+            <div class="container" style="text-align: center;">
+                <h2 class="nsti-showcase"
+                    style="font-size: clamp(3rem, 10vw, 8rem); font-weight: 900; letter-spacing: -2px; margin-bottom: 20px; transition: transform 0.3s ease; cursor: default;">
+                    NSTI JODHPUR
+                </h2>
+                <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px;">
+                    Experience the weightlessness of a seamless examination process. No lag, no friction, just pure
+                    performance.
+                </p>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 30px;">
+                    <span
+                        style="padding: 10px 20px; border: 1px solid var(--border); border-radius: 50px; color: var(--text-muted); font-size: 0.9rem;">Modern</span>
+                    <span
+                        style="padding: 10px 20px; border: 1px solid var(--border); border-radius: 50px; color: var(--text-muted); font-size: 0.9rem;">Fast</span>
+                    <span
+                        style="padding: 10px 20px; border: 1px solid var(--border); border-radius: 50px; color: var(--text-muted); font-size: 0.9rem;">Secure</span>
+                </div>
+            </div>
+            <style>
+                .nsti-showcase {
+                    background: linear-gradient(135deg, var(--text-main), var(--text-muted));
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+
+                .nsti-showcase:hover {
+                    transform: scale(1.05);
+                    background: linear-gradient(135deg, var(--blue), var(--red));
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            </style>
+        </section>
+
+        <!-- HOW IT WORKS (Process 1-2-3) -->
+        <section class="fade-up" style="background: var(--surface);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Workflow</span>
+                    <h2 class="section-title">How It Works</h2>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px;">
+                    <!-- Step 1 -->
+                    <div
+                        style="position: relative; padding: 40px; border-radius: 24px; background: var(--bg); border: 1px solid var(--border);">
+                        <div
+                            style="font-size: 4rem; font-weight: 800; color: var(--blue); opacity: 0.2; position: absolute; top: 20px; right: 30px;">
+                            01</div>
+                        <h3 style="margin-bottom: 15px; font-size: 1.5rem;">Register</h3>
+                        <p style="color: var(--text-muted);">Create your student profile and verify your identity
+                            securely using your NSTI credentials.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div
+                        style="position: relative; padding: 40px; border-radius: 24px; background: var(--bg); border: 1px solid var(--border);">
+                        <div
+                            style="font-size: 4rem; font-weight: 800; color: var(--red); opacity: 0.2; position: absolute; top: 20px; right: 30px;">
+                            02</div>
+                        <h3 style="margin-bottom: 15px; font-size: 1.5rem;">Take Exam</h3>
+                        <p style="color: var(--text-muted);">Launch the secure test environment. Questions are
+                            randomized and answers are auto-saved.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div
+                        style="position: relative; padding: 40px; border-radius: 24px; background: var(--bg); border: 1px solid var(--border);">
+                        <div
+                            style="font-size: 4rem; font-weight: 800; color: var(--green); opacity: 0.2; position: absolute; top: 20px; right: 30px;">
+                            03</div>
+                        <h3 style="margin-bottom: 15px; font-size: 1.5rem;">Get Results</h3>
+                        <p style="color: var(--text-muted);">Receive instant, detailed performance analytics and
+                            download your verified certificate.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIVE ANALYTICS (Bonus Interactive Section) -->
+        <section class="fade-up">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Real-Time Insights</span>
+                    <h2 class="section-title">Live Performance Analytics</h2>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <div
+                        style="background: var(--surface); padding: 30px; border-radius: 24px; width: 300px; text-align: center; border: 1px solid var(--border);">
+                        <h3 style="margin-bottom: 10px;">Avg Score</h3>
+                        <div
+                            style="height: 10px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin: 20px 0;">
+                            <div style="width: 78%; height: 100%; background: var(--blue);"></div>
+                        </div>
+                        <span style="font-size: 2.5rem; font-weight: 700; color: var(--blue);">78%</span>
+                    </div>
+                    <div
+                        style="background: var(--surface); padding: 30px; border-radius: 24px; width: 300px; text-align: center; border: 1px solid var(--border);">
+                        <h3 style="margin-bottom: 10px;">Completion</h3>
+                        <div
+                            style="height: 10px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin: 20px 0;">
+                            <div style="width: 92%; height: 100%; background: var(--green);"></div>
+                        </div>
+                        <span style="font-size: 2.5rem; font-weight: 700; color: var(--green);">92%</span>
+                    </div>
+                    <div
+                        style="background: var(--surface); padding: 30px; border-radius: 24px; width: 300px; text-align: center; border: 1px solid var(--border);">
+                        <h3 style="margin-bottom: 10px;">Active Users</h3>
+                        <div
+                            style="height: 10px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin: 20px 0;">
+                            <div style="width: 45%; height: 100%; background: var(--purple);"></div>
+                        </div>
+                        <span style="font-size: 2.5rem; font-weight: 700; color: var(--purple);">1.2K</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CERTIFICATE VERIFICATION (NEW) -->
+        <section id="verify" class="fade-up" style="background: var(--surface);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Verify Credentials</span>
+                    <h2 class="section-title">Certificate Check</h2>
+                </div>
+                <div
+                    style="max-width: 500px; margin: 0 auto; background: var(--bg); padding: 40px; border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow); text-align: center;">
+                    <i class="bi bi-patch-check-fill"
+                        style="font-size: 3rem; color: var(--green); margin-bottom: 20px; display: block;"></i>
+                    <h3 style="margin-bottom: 20px;">Verify Student Results</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 30px;">Enter the unique Certificate ID to
+                        validate authenticity details instantly.</p>
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <input type="text" placeholder="Enter Certificate ID"
+                            style="flex: 1; padding: 12px 20px; border-radius: 100px; border: 1px solid var(--border); background: var(--surface); color: var(--text-main); outline: none;">
+                        <button class="btn-pill" style="padding: 12px 24px;"><i class="bi bi-search"></i></button>
+                    </div>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Protected by Blockchain
+                        Technology</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- POPULAR TRADES (Updated List) -->
+        <section id="trades" class="fade-up" style="background: var(--surface);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Academics</span>
+                    <h2 class="section-title">Popular Trades</h2>
+                </div>
+                <div class="trades-grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                    <!-- CSA -->
+                    <div class="trade-card" onclick="window.location.href='dashboard.html?trade=CSA'"
+                        style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(66, 133, 244, 0.1);"><i class="bi bi-laptop"
+                                style="color: var(--blue);"></i></div>
+                        <h3>CSA/COPA</h3>
+                        <p>Computer Software Application. Master full-stack development and IT essentials.</p>
+                        <i class="bi bi-arrow-right trade-arrow" style="color: var(--blue);"></i>
+                    </div>
+                    <!-- Electrician -->
+                    <div class="trade-card" onclick="window.location.href='coming-soon.html'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(234, 67, 53, 0.1);"><i
+                                class="bi bi-lightning-charge" style="color: var(--red);"></i></div>
+                        <h3>Electrician</h3>
+                        <p>Industrial wiring, motor control, and power distribution systems.</p>
+                        <i class="bi bi-arrow-right trade-arrow" style="color: var(--red);"></i>
+                    </div>
+                    <!-- Fitter -->
+                    <div class="trade-card" onclick="window.location.href='coming-soon.html'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(52, 168, 83, 0.1);"><i
+                                class="bi bi-gear-wide-connected" style="color: var(--green);"></i></div>
+                        <h3>Fitter</h3>
+                        <p>Mechanical assembly, precision measuring, and workshop technology.</p>
+                        <i class="bi bi-arrow-right trade-arrow" style="color: var(--green);"></i>
+                    </div>
+                    <!-- MMV -->
+                    <div class="trade-card" onclick="window.location.href='coming-soon.html'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(251, 188, 5, 0.1);"><i class="bi bi-car-front"
+                                style="color: var(--yellow);"></i></div>
+                        <h3>MMV</h3>
+                        <p>Mechanic Motor Vehicle. Automobile engine repair and diagnostics.</p>
+                        <i class="bi bi-arrow-right trade-arrow" style="color: var(--yellow);"></i>
+                    </div>
+                    <!-- AI -->
+                    <div class="trade-card" onclick="window.location.href='coming-soon.html'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(151, 71, 255, 0.1);"><i class="bi bi-cpu"
+                                style="color: var(--purple);"></i></div>
+                        <h3>AI / Data Science</h3>
+                        <p>Future-ready skills in Artificial Intelligence and Machine Learning.</p>
+                        <i class="bi bi-arrow-right trade-arrow" style="color: var(--purple);"></i>
+                    </div>
+                    <!-- Solar -->
+                    <div class="trade-card" onclick="window.location.href='coming-soon.html'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(255, 111, 0, 0.1);"><i class="bi bi-sun"
+                                style="color: #FF6F00;"></i></div>
+                        <h3>Solar Technician</h3>
+                        <p>Green energy solutions, solar panel installation and maintenance.</p>
+                        <i class="bi bi-arrow-right trade-arrow" style="color: #FF6F00;"></i>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .trade-card {
+                    background: var(--bg);
+                    padding: 30px;
+                    border-radius: 24px;
+                    border: 1px solid var(--border);
+                    transition: 0.3s;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .trade-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: var(--shadow-hover);
+                }
+
+                .trade-icon {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 20px;
+                    font-size: 1.5rem;
+                }
+
+                .trade-card p {
+                    color: var(--text-muted);
+                    margin-top: 10px;
+                    font-size: 0.95rem;
+                }
+
+                .trade-arrow {
+                    position: absolute;
+                    bottom: 30px;
+                    right: 30px;
+                }
+            </style>
+        </section>
+
+        <!-- MOCK TEST PORTAL (NEW) -->
+        <section id="mock" class="fade-up" style="background: var(--bg);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Practice & Learn</span>
+                    <h2 class="section-title">Mock Test Portal</h2>
+                    <p style="color: var(--text-muted); margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto;">Test your knowledge before the final exams with our curated IMP (Important Questions) database.</p>
+                </div>
+                <div class="trades-grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                    <!-- CSA MOCK -->
+                    <div class="trade-card" onclick="window.location.href='mock-menu.html?trade=CSA'"
+                        style="cursor: pointer; border: 2px solid var(--blue); position: relative;">
+                        <div style="position: absolute; top: 20px; right: 20px; background: var(--blue); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; box-shadow: 0 4px 10px rgba(66, 133, 244, 0.3);">IMP QUESTIONS</div>
+                        <div class="trade-icon" style="background: rgba(66, 133, 244, 0.1);"><i class="bi bi-laptop" style="color: var(--blue);"></i></div>
+                        <h3>CSA Mock</h3>
+                        <p>Practice HTML, CSS, JavaScript, Networking, and DB concepts.</p>
+                        <i class="bi bi-play-circle-fill trade-arrow" style="color: var(--blue); font-size: 1.5rem; bottom: 25px;"></i>
+                    </div>
+                    <!-- Electrician Mock -->
+                    <div class="trade-card" onclick="window.location.href='mock-menu.html?trade=Electrician'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(234, 67, 53, 0.1);"><i class="bi bi-lightning-charge" style="color: var(--red);"></i></div>
+                        <h3>Electrician Mock</h3>
+                        <p>Industrial wiring, motor control, and power distribution systems.</p>
+                        <i class="bi bi-play-circle-fill trade-arrow" style="color: var(--red); font-size: 1.5rem; bottom: 25px;"></i>
+                    </div>
+                    <!-- Fitter Mock -->
+                    <div class="trade-card" onclick="window.location.href='mock-menu.html?trade=Fitter'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(52, 168, 83, 0.1);"><i class="bi bi-gear-wide-connected" style="color: var(--green);"></i></div>
+                        <h3>Fitter Mock</h3>
+                        <p>Mechanical assembly, precision measuring, and workshop technology.</p>
+                        <i class="bi bi-play-circle-fill trade-arrow" style="color: var(--green); font-size: 1.5rem; bottom: 25px;"></i>
+                    </div>
+                    <!-- MMV Mock -->
+                    <div class="trade-card" onclick="window.location.href='mock-menu.html?trade=MMV'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(251, 188, 5, 0.1);"><i class="bi bi-car-front" style="color: var(--yellow);"></i></div>
+                        <h3>MMV Mock</h3>
+                        <p>Mechanic Motor Vehicle. Automobile engine repair and diagnostics.</p>
+                        <i class="bi bi-play-circle-fill trade-arrow" style="color: var(--yellow); font-size: 1.5rem; bottom: 25px;"></i>
+                    </div>
+                    <!-- AI Mock -->
+                    <div class="trade-card" onclick="window.location.href='mock-menu.html?trade=AI'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(151, 71, 255, 0.1);"><i class="bi bi-cpu" style="color: var(--purple);"></i></div>
+                        <h3>AI / Data Science Mock</h3>
+                        <p>Future-ready skills in Artificial Intelligence and Machine Learning.</p>
+                        <i class="bi bi-play-circle-fill trade-arrow" style="color: var(--purple); font-size: 1.5rem; bottom: 25px;"></i>
+                    </div>
+                    <!-- Solar Mock -->
+                    <div class="trade-card" onclick="window.location.href='mock-menu.html?trade=Solar'" style="cursor: pointer;">
+                        <div class="trade-icon" style="background: rgba(255, 111, 0, 0.1);"><i class="bi bi-sun" style="color: #FF6F00;"></i></div>
+                        <h3>Solar Tech Mock</h3>
+                        <p>Green energy solutions, solar panel installation and maintenance.</p>
+                        <i class="bi bi-play-circle-fill trade-arrow" style="color: #FF6F00; font-size: 1.5rem; bottom: 25px;"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MOBILE APP DOWNLOAD (NEW) -->
+        <section class="fade-up" style="background: var(--surface);">
+            <div class="container">
+                <div class="app-download-container">
+                    <div style="flex: 1; text-align: left;">
+                        <span class="section-tag">Go Mobile</span>
+                        <h2 class="section-title" style="margin-bottom: 20px;">Exam Prep in Your Pocket</h2>
+                        <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px; line-height: 1.6;">
+                            Download the official NSTI LMS app. Access study materials, take mock tests, and check
+                            results on the go. Optimized for both Android and iOS.
+                        </p>
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            <button
+                                style="background: var(--text-main); color: var(--bg); border: none; padding: 12px 24px; border-radius: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s;">
+                                <i class="bi bi-apple" style="font-size: 1.5rem;"></i>
+                                <div style="text-align: left; line-height: 1.2;">
+                                    <span style="font-size: 0.7rem; display: block;">Download on the</span>
+                                    <span style="font-size: 1rem; font-weight: 600;">App Store</span>
+                                </div>
+                            </button>
+                            <button
+                                style="background: var(--text-main); color: var(--bg); border: none; padding: 12px 24px; border-radius: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s;">
+                                <i class="bi bi-google-play" style="font-size: 1.5rem;"></i>
+                                <div style="text-align: left; line-height: 1.2;">
+                                    <span style="font-size: 0.7rem; display: block;">GET IT ON</span>
+                                    <span style="font-size: 1rem; font-weight: 600;">Google Play</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: center;">
+                        <!-- Mockup of Phone -->
+                        <div
+                            style="width: 280px; height: 500px; background: var(--bg); border: 8px solid var(--text-main); border-radius: 40px; position: relative; box-shadow: var(--shadow-hover); overflow: hidden;">
+                            <div
+                                style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--surface), var(--bg));">
+                                <i class="bi bi-app-indicator" style="font-size: 5rem; color: var(--blue);"></i>
+                            </div>
+                            <!-- Notch -->
+                            <div
+                                style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: var(--text-main); border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS (Reverse, Fast) -->
+        <section class="fade-up" style="overflow: hidden;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Community</span>
+                    <h2 class="section-title">Student Voices</h2>
+                </div>
+            </div>
+            <div class="marquee-container">
+                <!-- Speed up (20s) and Reverse -->
+                <div class="marquee-content reviews-marquee"
+                    style="animation-direction: reverse; animation-duration: 20s;">
+                    <div class="review-card">
+                        <p style="font-style:italic; color:var(--text-muted)">"The interface is so clean. Navigating
+                            through questions was intuitive and fast."</p>
+                        <div style="margin-top:15px; font-weight:600">- Rahul Sharma, CSA</div>
+                    </div>
+                    <div class="review-card">
+                        <p style="font-style:italic; color:var(--text-muted)">"I was worried about internet, but
+                            auto-save saved me. Works great on mobile too!"</p>
+                        <div style="margin-top:15px; font-weight:600">- Priya Patel, MMV</div>
+                    </div>
+                    <div class="review-card">
+                        <p style="font-style:italic; color:var(--text-muted)">"Best exam experience. Random
+                            questions
+                            made it fair for everyone."</p>
+                        <div style="margin-top:15px; font-weight:600">- Amit Kumar, Electrician</div>
+                    </div>
+                    <div class="review-card">
+                        <p style="font-style:italic; color:var(--text-muted)">"The analytics section helps me
+                            understand
+                            my weak areas instantly."</p>
+                        <div style="margin-top:15px; font-weight:600">- Neha Gupta, AI</div>
+                    </div>
+                    <!-- Duplicates -->
+                    <div class="review-card">
+                        <p style="font-style:italic; color:var(--text-muted)">"The interface is so clean. Navigating
+                            through questions was intuitive and fast."</p>
+                        <div style="margin-top:15px; font-weight:600">- Rahul Sharma, CSA</div>
+                    </div>
+                    <div class="review-card">
+                        <p style="font-style:italic; color:var(--text-muted)">"I was worried about internet, but
+                            auto-save saved me. Works great on mobile too!"</p>
+                        <div style="margin-top:15px; font-weight:600">- Priya Patel, MMV</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION (Moved to Bottom) -->
+        <section id="about" class="fade-up" style="background: var(--surface);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">About The Portal</span>
+                    <h2 class="section-title">Our Mission</h2>
+                </div>
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <div class="mission-icon" style="color:var(--blue)"><i class="bi bi-eye"></i></div>
+                        <h3>Vision</h3>
+                        <p style="color:var(--text-muted); margin-top:15px">To digitize assessments with a focus on
+                            speed, integrity, and user experience.</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon" style="color:var(--red)"><i class="bi bi-bullseye"></i></div>
+                        <h3>Goal</h3>
+                        <p style="color:var(--text-muted); margin-top:15px">Eliminate paper usage and provide
+                            instant
+                            feedback to students.</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon" style="color:var(--green)"><i class="bi bi-globe"></i></div>
+                        <h3>Impact</h3>
+                        <p style="color:var(--text-muted); margin-top:15px">Empowering over 10,000 students with
+                            accessible technology.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="fade-up">
+            <div class="container" style="text-align:center; max-width:600px;">
+                <h2 style="margin-bottom:20px;">Still have questions?</h2>
+                <p style="color:var(--text-muted); margin-bottom:40px;">Our support team is available 24/7 to help
+                    you
+                    with any issues.</p>
+                <a href="#" class="btn-pill">Contact Support</a>
+            </div>
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h4>NSTI Jodhpur</h4>
+                        <p style="color:var(--text-muted)">Re-imagining assessment through technology and design.
+                        </p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Platform</h4>
+                        <a href="#">Candidate Login</a>
+                        <a href="#">Admin Portal</a>
+                        <a href="#">Results</a>
+                        <a href="#">Verify Verify Certificate</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Resources</h4>
+                        <a href="#">Documentation</a>
+                        <a href="#">API Access</a>
+                        <a href="#">System Status</a>
+                        <a href="#">Security</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; 2026 NSTI Jodhpur. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        /* --- 1. THEME --- */
+        const themeBtn = document.getElementById('theme-btn');
+        const icon = themeBtn.querySelector('i');
+        const html = document.documentElement;
+
+        themeBtn.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            if (current === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'bi bi-sun-fill';
+            } else {
+                html.setAttribute('data-theme', 'light');
+                icon.className = 'bi bi-moon-fill';
+            }
+        });
+
+        /* --- 2. PARTICLES --- */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+        const colors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853', '#9747FF'];
+
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; initParticles(); }
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width; this.y = Math.random() * height;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.size = Math.random() * 3 + 1;
+                this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5;
+                this.isCircle = Math.random() > 0.5;
+            }
+            update(mx, my) {
+                this.x += this.vx; this.y += this.vy;
+                const dx = this.x - mx, dy = this.y - my;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const minDist = 150;
+                if (dist < minDist) {
+                    const force = (minDist - dist) / minDist;
+                    const repulse = force * 5;
+                    this.x += (dx / dist) * repulse; this.y += (dy / dist) * repulse;
+                }
+                if (this.x < 0) this.x = width; if (this.x > width) this.x = 0; if (this.y < 0) this.y = height; if (this.y > height) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                if (this.isCircle) { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+                else { ctx.fillRect(this.x, this.y, this.size * 1.5, this.size * 1.5); }
+            }
+        }
+        function initParticles() {
+            particles = [];
+            if (window.innerWidth < 768) return;
+            const count = (width * height) / 4000;
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+        let mx = -1000, my = -1000;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => { p.update(mx, my); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', resize); resize(); animate();
+
+        /* --- 3. SCROLL --- */
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        /* --- 4. NAVIGATION LOGIC --- */
+        function toggleMobileMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>NSTI Jodhpur - CSA Mock Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --bg: #0a0a0a;
+            --surface: #121212;
+            --surface-light: #1e1e1e;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --border: #333333;
+            --primary: #ffffff;
+            --primary-btn: #ffffff;
+            --primary-btn-text: #0a0a0a;
+            --accent: #3b82f6;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --radius: 24px;
+            --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 20px rgba(255, 255, 255, 0.1);
+            --option-bg: #1e1e1e;
+            --option-hover: #333333;
+        }
+
+        [data-theme="light"] {
+            --bg: #F0F2F5;
+            --surface: #FFFFFF;
+            --surface-light: #F8F9FA;
+            --text-main: #1a1a1a;
+            --text-muted: #5f6368;
+            --border: #E5E7EB;
+            --primary-btn: #1a1a1a;
+            --primary-btn-text: #ffffff;
+            --accent: #2563EB;
+            --danger: #DC2626;
+            --success: #16A34A;
+            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+            --glow: 0 0 15px rgba(0, 0, 0, 0.05);
+            --option-bg: #F3F4F6;
+            --option-hover: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, rgba(125, 125, 125, 0.05) 0%, transparent 50%);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- THEME TOGGLE --- */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: transform 0.2s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- UTILITIES --- */
+        .text-success {
+            color: var(--success) !important;
+        }
+
+        .text-danger {
+            color: var(--danger) !important;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            gap: 8px;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-btn);
+            color: var(--primary-btn-text);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(125, 125, 125, 0.3);
+        }
+
+        /* ... rest of styles ... */
+
+
+        .btn-secondary {
+            background: var(--surface-light);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .btn-success {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        /* --- CARDS & LAYOUT --- */
+        .card-custom {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--text-main);
+            box-shadow: var(--glow);
+        }
+
+        /* --- HEADER & PROFILES --- */
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .student-badge {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--surface-light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--text-main);
+            color: var(--bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- QUESTION AREA --- */
+        .question-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            max-height: calc(100vh - 180px);
+        }
+
+        /* Ensure scrolling within box if needed */
+        .qno {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .qtext {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: var(--text-main);
+        }
+
+        /* OPTIMIZED IMAGE DISPLAY */
+        .question-image-wrapper {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .question-image-wrapper img {
+            max-width: 100%;
+            max-height: 250px;
+            /* Constrain height to avoid blocking options */
+            width: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--surface-light);
+            /* Better visibility for transparent images */
+            padding: 5px;
+        }
+
+        /* --- OPTIONS --- */
+        .options {
+            margin-top: 15px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            background: var(--option-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .options label:hover {
+            border-color: var(--accent);
+            background: var(--option-hover);
+        }
+
+        .options input[type="radio"] {
+            accent-color: var(--accent);
+            transform: scale(1.1);
+            margin-top: 2px;
+        }
+
+        /* --- NAVIGATION GRID --- */
+        .question-nav {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            background: var(--surface-light);
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            max-height: 300px;
+            overflow-y: auto;
+            /* Scrollable nav if many questions */
+        }
+
+        .question-nav button {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .question-nav button:hover {
+            border-color: var(--text-main);
+            color: var(--text-main);
+        }
+
+        /* Active States */
+        .question-nav button.answered {
+            background: var(--success);
+            color: #fff;
+            border-color: var(--success);
+        }
+
+        .question-nav button.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent);
+            transform: scale(1.05);
+        }
+
+        /* --- MODALS (Custom) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            width: 90%;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .timer-badge {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-family: monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            white-space: nowrap;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (min-width: 900px) {
+            .exam-layout {
+                display: grid;
+                grid-template-columns: 1fr 280px;
+                gap: 30px;
+                align-items: start;
+            }
+
+            .question-box {
+                max-height: calc(100vh - 200px);
+                padding-right: 10px;
+            }
+
+            /* Clean scroll on desktop */
+        }
+
+        @media (max-width: 900px) {
+            .card-custom {
+                padding: 20px;
+                border-radius: 16px;
+                margin-bottom: 80px;
+                /* Space for bottom nav if needed */
+            }
+
+            .qtext {
+                font-size: 1.1rem;
+            }
+
+            .exam-layout {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .question-nav {
+                grid-template-columns: repeat(6, 1fr);
+                max-height: none;
+                overflow-y: visible;
+            }
+
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+            }
+
+            /* Mobile Image Optimization */
+            .question-image-wrapper img {
+                max-height: 200px;
+            }
+
+            /* Smaller on mobile */
+
+            /* Ensure container doesn't force horizontal scroll */
+            .container {
+                padding: 15px;
+                overflow-x: hidden;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .question-nav {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div style="padding: 20px; text-align: center; border-bottom: 1px solid var(--border);">
+        <h3 style="font-weight: 800; letter-spacing: -1px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+            NSTI JODHPUR <span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 6px; font-size: 0.8rem;">MOCK IMP PORTAL</span>
+        </h3>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- ALERT BANNER -->
+        <div id="timeBanner"
+            style="background: rgba(59, 130, 246, 0.1); color: var(--accent); padding: 10px; border-radius: 8px; text-align: center; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid rgba(59, 130, 246, 0.2);">
+            Loading system time...
+        </div>
+
+        <div class="card-custom">
+
+            <!-- LOGIN SCREEN -->
+            <div id="start-screen">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Secure Login</h1>
+                    <p style="color: var(--text-muted);">Enter your credentials to access the examination environment.
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input id="username" class="form-control" placeholder="Ex. Amit Sharma" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Roll / Mobile Number</label>
+                    <input id="mobile" class="form-control" placeholder="Ex. 9876543210" />
+                </div>
+
+                <button id="startBtn" class="btn btn-primary w-100">
+                    Start Mock Test <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- EXAM INTERFACE -->
+            <div id="exam-area" style="display:none;">
+                <div class="exam-header">
+                    <div class="student-badge" id="profileTrigger" style="cursor: pointer;">
+                        <div class="profile-icon" id="profileIcon"><i class="bi bi-person-fill"></i></div>
+                        <div id="studentInfo">Student Name</div>
+                    </div>
+                    <div class="timer-badge" id="timer">00:00</div>
+                </div>
+
+                <div class="exam-layout">
+                    <!-- QUESTION COLUMN -->
+                    <div class="question-box">
+                        <div class="d-flex justify-content-between mb-2">
+                            <div class="qno">Question <span id="qIndex">1</span> of <span id="qTotal">50</span></div>
+                        </div>
+
+                        <div class="qtext" id="qText">Loading Question...</div>
+                        <div class="qtext small" style="color:var(--text-muted); font-size:1rem;" id="qTextHindi"></div>
+                        <div id="qSource" style="display:none"></div>
+
+                        <div id="qImageWrapper" class="question-image-wrapper" style="display:none;">
+                            <img id="qImage">
+                        </div>
+
+                        <div class="options" id="options">
+                            <!-- Options injected here -->
+                        </div>
+
+                        <div style="display: flex; gap: 15px; margin-top: 30px;">
+                            <button id="prevBtn" class="btn btn-secondary" style="flex:1;">Previous</button>
+                            <button id="nextBtn" class="btn btn-primary" style="flex:1;">Next Question</button>
+                        </div>
+                    </div>
+
+                    <!-- NAV COLUMN -->
+                    <div style="margin-top: 30px;">
+                        <h6
+                            style="text-transform: uppercase; color: var(--text-muted); font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 15px;">
+                            Question Palette</h6>
+                        <div class="question-nav" id="questionNav">
+                            <!-- Nav buttons injected here -->
+                        </div>
+                        <button id="submitBtn" class="btn btn-danger w-100" style="margin-top: 30px;">Finish
+                            Exam</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUMMARY AREA -->
+            <div id="summary-area" style="display:none; text-align: center;">
+                <div
+                    style="width: 80px; height: 80px; background: rgba(34, 197, 94, 0.1); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px;">
+                    <i class="bi bi-check-lg"></i>
+                </div>
+                <h2 style="margin-bottom: 10px;">Exam Submitted!</h2>
+                <div id="summaryStats"
+                    style="background: var(--surface-light); padding: 20px; border-radius: 12px; margin: 20px 0;"></div>
+
+                <div id="summaryList"
+                    style="text-align: left; max-height: 400px; overflow-y: auto; padding-right: 10px;"></div>
+
+                <div style="display: flex; gap: 15px; margin-top: 30px; justify-content: center;">
+                    <button id="downloadBtn" class="btn btn-success"><i class="bi bi-download"></i> Download
+                        Report</button>
+                    <button class="btn btn-secondary" onclick="window.location.reload()">Back to Home</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CUSTOM MODALS -->
+    <div id="profileModal" class="modal-overlay">
+        <div class="modal-card">
+            <h4 style="margin-bottom: 20px;">Student Profile</h4>
+            <div id="profileDetails"
+                style="text-align: left; background: var(--surface-light); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            </div>
+            <button class="btn btn-secondary w-100" onclick="closeModal('profileModal')">Close</button>
+        </div>
+    </div>
+
+    <div id="loadingModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="spinner-border text-primary" role="status"
+                style="margin-bottom: 15px; width: 3rem; height: 3rem; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--text-main); border-radius: 50%; animation: spin 1s linear infinite;">
+            </div>
+            <h5>Setting up secure environment...</h5>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Please wait.</p>
+        </div>
+    </div>
+
+    <div id="submitModal" class="modal-overlay">
+        <div class="modal-card" id="submitModalContent">
+            <div class="spinner-border"
+                style="margin-bottom: 15px; width: 3rem; height: 3rem; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--text-main); border-radius: 50%; animation: spin 1s linear infinite;">
+            </div>
+            <h5>Submitting Responses...</h5>
+            <p style="color: var(--text-muted);">Do not close the window.</p>
+        </div>
+    </div>
+
+    <style>
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <!-- THEME TOGGLE BTN -->
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">
+        <i class="bi bi-moon-stars-fill"></i>
+    </button>
+
+    <!-- BOOTSTRAP SHIM & LOGIC -->
+    <script>
+        // --- THEME LOGIC ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeBtn');
+            const icon = btn.querySelector('i');
+
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                icon.className = 'bi bi-sun-fill';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'bi bi-moon-stars-fill';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Init Theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.querySelector('#themeBtn i').className = savedTheme === 'dark' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill';
+
+        // Custom Modal Logic to replace Bootstrap
+        window.bootstrap = {
+            Modal: class {
+                constructor(element) { this.element = element; }
+                show() { this.element.style.display = 'flex'; }
+                hide() { this.element.style.display = 'none'; }
+            }
+        };
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+
+    <script src="mock-csa-data.js"></script>
+    <script src="mock-script.js"></script>
+</body>
+
+</html>
